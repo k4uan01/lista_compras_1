@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { fromDb, toDbInsert } from '../lib/shoppingItems'
+import { createItemId, fromDb, toDbInsert } from '../lib/shoppingItems'
 import { supabase } from '../lib/supabase'
 import type { Filter, NewItemInput, ShoppingItem } from '../types'
 
@@ -57,7 +57,7 @@ export function useShoppingList() {
       if (!trimmed) return false
 
       const item: ShoppingItem = {
-        id: crypto.randomUUID(),
+        id: createItemId(),
         name: trimmed,
         quantity: Math.max(1, input.quantity),
         unit: input.unit,
